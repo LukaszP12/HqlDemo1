@@ -6,17 +6,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import pl.strefakursow.hibernatedemo1.entity.Employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class WhereApp {
+public class SelectApp {
 
     public static void main(String[] args) {
-
         // stworzyc obiekt Configuration
         Configuration conf = new Configuration().configure("hibernate.cfg.xml");
 
         // wczytanie adnotacji
-        conf.addAnnotatedClass(Employee .class);
+        conf.addAnnotatedClass(Employee.class);
 
         // stworzenie obiektu SessionFactory
         SessionFactory factory = conf.buildSessionFactory();
@@ -29,28 +29,22 @@ public class WhereApp {
 
         session.beginTransaction();
 
-        String where = "from Employee where firstName='Tadeusz'";
-        String where2 = "from Employee where salary > 12000";
-        String where3 = "from Employee where salary < 3000 or salary > 13000";
-        String where4 = "from Employee where salary is null";
-        String where5 = "from Employee where lastName in ('Hutton','Errazuriz','Wiśniewski)";
+        String select = "select firstName, lastName from Employee"; // piszemy nazwy z encji
+        String select1 = "select e.firstName, e.lastName from Employee as e"; // korzystamy z aliasu
+        String select2 = "select e.firstName, e.lastName from Employee"; // nawet jeżeli nie damy e, to Hibernate i domyśli się, że jest to alias
 
-        Query query = session.createQuery(where2);
-        Query query1 = session.createQuery(where3);
-        Query query2 = session.createQuery(where4);
-        Query query3 = session.createQuery(where5);
-
-        List<Employee> list = query.getResultList();
+        Query query = session.createQuery(select);
+        List<Object> result = query.getResultList(); // wyniki w formie listy obiektów
 
         session.getTransaction().commit();
 
-        for(Employee employee : list){
-            System.out.println(employee);
-        }
+        for(Object[] values : result){
+            System.out.println("firstName: " + values[0] + ", lastName: " + values[1]);
+            }
 
         // zamknięcie obiektu SessionFactory
         factory.close();
 
+        }
     }
 
-}

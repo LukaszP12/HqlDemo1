@@ -8,15 +8,14 @@ import pl.strefakursow.hibernatedemo1.entity.Employee;
 
 import java.util.List;
 
-public class WhereApp {
+public class OrderByApp {
 
     public static void main(String[] args) {
-
         // stworzyc obiekt Configuration
         Configuration conf = new Configuration().configure("hibernate.cfg.xml");
 
         // wczytanie adnotacji
-        conf.addAnnotatedClass(Employee .class);
+        conf.addAnnotatedClass(Employee.class);
 
         // stworzenie obiektu SessionFactory
         SessionFactory factory = conf.buildSessionFactory();
@@ -29,28 +28,22 @@ public class WhereApp {
 
         session.beginTransaction();
 
-        String where = "from Employee where firstName='Tadeusz'";
-        String where2 = "from Employee where salary > 12000";
-        String where3 = "from Employee where salary < 3000 or salary > 13000";
-        String where4 = "from Employee where salary is null";
-        String where5 = "from Employee where lastName in ('Hutton','Errazuriz','Wiśniewski)";
+        String orderBy = "select e.firstName, e.lastName from Employee e order by e.firstName";
+        //String orderBy = "select e.firstName, e.lastName from Employee e order by e.lastName desc";
+        String orderBy3 = "select e.firstName, e.lastName, e.salary from Employee e order by e.salary asc";
 
-        Query query = session.createQuery(where2);
-        Query query1 = session.createQuery(where3);
-        Query query2 = session.createQuery(where4);
-        Query query3 = session.createQuery(where5);
+        Query query = session.createQuery(orderBy);
+        //Query  query1 = session.createQuery(orderBy);
+        Query query1 = session.createQuery(orderBy3);
 
-        List<Employee> list = query.getResultList();
+        List<Object[]> result1 = query1.getResultList();
 
-        session.getTransaction().commit();
-
-        for(Employee employee : list){
-            System.out.println(employee);
-        }
+        List<Object[]> result = query.getResultList();
 
         // zamknięcie obiektu SessionFactory
         factory.close();
 
-    }
 
-}
+        }
+
+    }
