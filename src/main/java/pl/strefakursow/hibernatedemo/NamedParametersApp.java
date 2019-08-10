@@ -42,8 +42,13 @@ public class NamedParametersApp {
         namedParametersQuery.setParameter("firstName",employeeFirstName);
         namedParametersQuery.setParameter("lastName",employeeLastName);
 
-        Query query = session.createQuery(queryString);
-        List<Object[]> result = query.getResultList();
+        List<Object[]> result = namedParametersQuery.getResultList();
+
+        session.getTransaction().commit();
+
+        for (Object[] values : result){
+            System.out.println("firstName: " + values[0] + "lastName: " + values[1] + ", salary: " + values[2]);
+        }
 
         // zamknięcie obiektu SessionFactory
         factory.close();
