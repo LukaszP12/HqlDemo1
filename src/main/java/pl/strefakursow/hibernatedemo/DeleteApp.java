@@ -32,7 +32,9 @@ public class DeleteApp {
         String delete = "delete Employee e where e.idEmployee=:idEmployee";
         Query query = session.createQuery(delete);
         query.setParameter("idEmployee",idEmployee);
-        query.executeUpdate();
+        int rows = query.executeUpdate();
+
+        System.out.println("ilosc usunietych rekordow: " + rows);
 
         session.getTransaction().commit();
 
