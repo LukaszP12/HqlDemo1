@@ -29,12 +29,12 @@ public class SelectApp {
 
         session.beginTransaction();
 
-        String select = "select firstName, lastName from Employee"; // piszemy nazwy z encji
+        String select = "SELECT firstName, lastName FROM Employee"; // piszemy nazwy z encji
         String select1 = "select e.firstName, e.lastName from Employee as e"; // korzystamy z aliasu
         String select2 = "select e.firstName, e.lastName from Employee"; // nawet jeżeli nie damy e, to Hibernate i domyśli się, że jest to alias
 
         Query query = session.createQuery(select);
-        List<Object> result = query.getResultList(); // wyniki w formie listy obiektów
+        List<Object[]> result = query.getResultList(); // wyniki w formie listy obiektów
 
         session.getTransaction().commit();
 
@@ -47,4 +47,3 @@ public class SelectApp {
 
         }
     }
-

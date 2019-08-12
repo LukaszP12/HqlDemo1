@@ -54,7 +54,7 @@ public class AggregateFunctionsApp {
 
         session.getTransaction().commit();
 
-        System.out.println("wynik: " + result);
+        System.out.println("wynik: " + resultAvg);
 
         // zamknięcie obiektu SessionFactory
         factory.close();
