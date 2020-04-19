@@ -13,7 +13,10 @@ public class FromApp {
 
     public static void main(String[] args) {
         // stworzyc obiekt Configuration
-        Configuration conf = new Configuration().configure("hibernate.cfg.xml");
+        Configuration conf = new Configuration();
+
+        // wczytanie pliku konfiguracyjnego
+        conf.configure("hibernate.cfg.xml");
 
         // wczytanie adnotacji
         conf.addAnnotatedClass(Employee.class);
@@ -24,20 +27,17 @@ public class FromApp {
         // pobranie sesji
         Session session = factory.getCurrentSession();
 
-        // wczytujemy pracownika
-        session = factory.getCurrentSession();
-
         session.beginTransaction();
 
         // instrukcje HQL zapisuje się w postaci zwykłego Stringa
-        String from = "FROM Employee"; // wielkosc liter nie ma znaczenie (jak w SQL)
+        String from = "from Employee"; // wielkosc liter nie ma znaczenie (jak w SQL)
+
+     //   String from3 = "from pl.strefakursow.hqldemo1.entity.Employee"; gdyby tabele nazywaly sie tak samo
 
         // Teraz zapytanie w postaci obiektowej
         Query query = session.createQuery(from);
 
         List<Employee> list = query.getResultList();
-
-        session.getTransaction().commit();
 
         for(Employee employee : list){
             System.out.println(employee);

@@ -25,9 +25,6 @@ public class NamedParametersApp {
         // pobranie sesji
         Session session = factory.getCurrentSession();
 
-        // wczytujemy pracownika
-        session = factory.getCurrentSession();
-
         String employeeFirstName = "Steven";
         String employeeLastName = "King";
 
@@ -41,6 +38,7 @@ public class NamedParametersApp {
         Query namedParametersQuery = session.createNamedQuery(namedParametersString);
         namedParametersQuery.setParameter("firstName",employeeFirstName);
         namedParametersQuery.setParameter("lastName",employeeLastName);
+
 
         List<Object[]> result = namedParametersQuery.getResultList();
 

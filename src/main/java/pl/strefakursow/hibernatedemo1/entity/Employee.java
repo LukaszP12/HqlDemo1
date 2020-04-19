@@ -1,10 +1,9 @@
 package pl.strefakursow.hibernatedemo1.entity;
 
-
 import javax.persistence.*;
 
 @Entity // określa, że dana klasa jest encja
-@Table(name="employee")
+@Table(name="employee1")
 public class Employee {
 
     /*GenerationType.Auto - automatyczne określenie sposobu generowania
@@ -26,7 +25,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_employee")
+    @Column(name="emp_id")
     private Integer idEmployee;
 
     @Column(name="first_name")

@@ -3,12 +3,9 @@ package pl.strefakursow.hibernatedemo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import pl.strefakursow.hibernatedemo1.entity.Employee;
 
-import java.util.List;
-
-public class UpdateApp {
+public class DeleteEntityApp {
 
     public static void main(String[] args) {
         // stworzyc obiekt Configuration
@@ -26,18 +23,15 @@ public class UpdateApp {
         // wczytujemy pracownika
         session = factory.getCurrentSession();
 
-        //nowe wartosci
-        int idEmployee = 267;
-        int salary = 15000;
-
         session.beginTransaction();
+        Employee employee = session.get(Employee.class, 26);
 
-        String updated = "";
+        session.delete(employee);
 
         session.getTransaction().commit();
 
-        // zamknięcie obiektu SessionFactory
-        factory.close();
+        session.close();
+
     }
 
 }

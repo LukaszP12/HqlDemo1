@@ -31,18 +31,17 @@ public class WhereApp {
 
         String where = "from Employee where firstName='Tadeusz'";
         String where2 = "from Employee where salary > 12000";
-        String where3 = "from Employee where salary < 3000 or salary > 13000";
+        String where3 = "from Employee where salary > 13000 or salary < 3000";
         String where4 = "from Employee where salary is null";
-        String where5 = "from Employee where lastName in ('Hutton','Errazuriz','Wiśniewski)";
+        String where5 = "from Employee where lastName in ('Hutton','Errazuriz','Wiśniewski')";
 
-        Query query = session.createQuery(where2);
-        Query query1 = session.createQuery(where3);
-        Query query2 = session.createQuery(where4);
-        Query query3 = session.createQuery(where5);
+        Query query = session.createQuery(where);
+        Query query1 = session.createQuery(where2);
+        Query query2 = session.createQuery(where3);
+        Query query3 = session.createQuery(where4);
+        Query query4 = session.createQuery(where5);
 
         List<Employee> list = query.getResultList();
-
-        session.getTransaction().commit();
 
         for(Employee employee : list){
             System.out.println(employee);
